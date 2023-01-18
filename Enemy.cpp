@@ -1,58 +1,63 @@
-#include "Player.h"
+#include "Enemy.h"
 #include "Engine/Model.h"
 #include "Engine/Input.h"
+#include "Player.h"
 
 //コンストラクタ
-Player::Player(GameObject* parent)
-	:GameObject(parent, "Player"), hModel_(-1)
+Enemy::Enemy(GameObject* parent)
+	:GameObject(parent, "Enemy"), hModel_(-1)
 {
-	
+
 }
 
 //デストラクタ
-Player::~Player()
+Enemy::~Enemy()
 {
 }
 
 //初期化
-void Player::Initialize()
+void Enemy::Initialize()
 {
 	//モデルデータのロード
 	hModel_ = Model::Load("Player.fbx");
 	assert(hModel_ >= 0);
 
 	transform_.position_.x = 1.5f;
-	transform_.position_.z = 1.5f;
+	transform_.position_.z = 5.5f;
 
 	pStage = (Stage*)FindObject("Stage");
 	assert(pStage != nullptr);
 }
 
 //更新
-void Player::Update()
+void Enemy::Update()
 {
 	//移動前の位置ベクトル
 	XMVECTOR prevPosition = XMLoadFloat3(&transform_.position_);
 
-	if (Input::IsKey(DIK_D))
+	if (Input::IsKey(DIK_L))
 	{
 		transform_.position_.x += 0.1f;
 	}
 
-	if (Input::IsKey(DIK_A))
+	if (Input::IsKey(DIK_J))
 	{
 		transform_.position_.x -= 0.1f;
 	}
 
-	if (Input::IsKey(DIK_W))
+	if (Input::IsKey(DIK_I))
 	{
 		transform_.position_.z += 0.1f;
 	}
 
-	if (Input::IsKey(DIK_S))
+	if (Input::IsKey(DIK_K))
 	{
 		transform_.position_.z -= 0.1f;
 	}
+
+	//Player * pPlayer = (Player*)FindObject("Player");
+	//transform_.position_.x = pPlayer->GetPosition().x - 1;
+	//transform_.position_.z = pPlayer->GetPosition().z - 1;
 
 	//現在の位置ベクトル
 	XMVECTOR nowPosition = XMLoadFloat3(&transform_.position_);
@@ -94,20 +99,20 @@ void Player::Update()
 		transform_.rotate_.y = angle * 180.0f / 3.14f;
 	}
 
-	if (pStage->IsWall((int)transform_.position_.x,	(int)transform_.position_.z))
+	if (pStage->IsWall((int)transform_.position_.x, (int)transform_.position_.z))
 	{
 		XMStoreFloat3(&transform_.position_, prevPosition);
 	}
 }
 
 //描画
-void Player::Draw()
+void Enemy::Draw()
 {
 	Model::SetTransform(hModel_, transform_);
 	Model::Draw(hModel_);
 }
 
 //開放
-void Player::Release()
+void Enemy::Release()
 {
 }
