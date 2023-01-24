@@ -68,3 +68,8 @@ bool Stage::IsWall(int x, int z)
 {
     return (map_[x][z] == 1);
 }
+
+bool Stage::IsFloor(int x, int z)
+{
+    return (map_[x][z] == 0);
+}

@@ -23,7 +23,7 @@ void Enemy::Initialize()
 	assert(hModel_ >= 0);
 
 	transform_.position_.x = 1.5f;
-	transform_.position_.z = 5.5f;
+	transform_.position_.z = 13.5f;
 
 	pStage = (Stage*)FindObject("Stage");
 	assert(pStage != nullptr);
@@ -99,10 +99,21 @@ void Enemy::Update()
 		transform_.rotate_.y = angle * 180.0f / 3.14f;
 	}
 
-	if (pStage->IsWall((int)transform_.position_.x, (int)transform_.position_.z))
+	XMFLOAT3 objPos;
+	objPos = transform_.position_;
+
+	if (pStage->IsWall((int)objPos.x, (int)objPos.z))
 	{
 		XMStoreFloat3(&transform_.position_, prevPosition);
 	}
+	if (pStage->IsFloor((int)objPos.x + 1, (int)objPos.z))
+	{
+		transform_.position_.x += 0.1f;
+	}
+	//if (pStage->IsFloor((int)objPos.x, (int)objPos.z - 1))
+	//{
+	//	transform_.position_.z -= 0.1f;
+	//}
 }
 
 //•`‰æ

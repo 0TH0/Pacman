@@ -98,6 +98,11 @@ void Player::Update()
 	{
 		XMStoreFloat3(&transform_.position_, prevPosition);
 	}
+
+	//if (pStage->IsFloor((int)transform_.position_.x + 1, (int)transform_.position_.z))
+	//{
+	//	transform_.position_.x = 0.1f;
+	//}
 }
 
 //•`‰æ

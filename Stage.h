@@ -29,4 +29,7 @@ public:
 
     //ÇªÇ±ÇÕï«ÅH
     bool IsWall(int x, int z);
+
+    //ÇªÇ±ÇÕè∞ÅH
+    bool IsFloor(int x, int z);
 };
