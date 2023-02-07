@@ -1,18 +1,11 @@
 #pragma once
-#include "Enemy.h"
+#include "CharacterBase.h"
 #include "Engine/GameObject.h"
 #include "Stage.h"
 
 //◆◆◆を管理するクラス
-class Enemy : public GameObject
+class Enemy : public CharacterBase
 {
-    int hModel_;    //モデル番号
-
-    int map_[15][15];
-
-    Stage* pStage;
-
-
 public:
     //コンストラクタ
     Enemy(GameObject* parent);
@@ -20,15 +13,11 @@ public:
     //デストラクタ
     ~Enemy();
 
-    //初期化
-    void Initialize() override;
+    void InitBase() override;
 
-    //更新
-    void Update() override;
+    void Action() override;
 
-    //描画
-    void Draw() override;
+    void Command() override;
 
-    //開放
-    void Release() override;
+    void OnCollision(GameObject* pTarget) override;
 };
