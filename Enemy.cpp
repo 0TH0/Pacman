@@ -1,5 +1,6 @@
 #include "Enemy.h"
 #include "Engine/SceneManager.h"
+#include "Player.h"
 
 //コンストラクタ
 Enemy::Enemy(GameObject* parent)
@@ -14,52 +15,56 @@ Enemy::~Enemy()
 
 void Enemy::InitBase()
 {
-	transform_.position_ = XMFLOAT3(13, 0, 1);
-	dir = Enemy::DIR::R;
+	transform_.position_ = XMFLOAT3(13.5, 0, 1.5f);
+	//dir_ = Enemy::DIR::R;
 }
 
 void Enemy::Action()
 {
 	{
-		XMFLOAT3 obj = transform_.position_;
-
-		if (pStage->IsWall((int)obj.x, (int)obj.z))
+		if (pStage->IsWall((float)transform_.position_.x + 0.3, (float)transform_.position_.z + 0.3))
 		{
 			XMStoreFloat3(&transform_.position_, prevPosition);
-			if (dir == Enemy::DIR::L)
-			{
-				dir = Enemy::DIR::D;
-			}
-			else if (dir == Enemy::DIR::D)
-			{
-				dir = Enemy::DIR::R;
-			}
 		}
 
-		obj.z = transform_.position_.z + 0.7f;
-
-		if (pStage->IsWall((int)obj.x, (int)obj.z))
+		if (pStage->IsWall((float)transform_.position_.x - 0.3, (float)transform_.position_.z - 0.3))
 		{
 			XMStoreFloat3(&transform_.position_, prevPosition);
-			if (dir == Enemy::DIR::U)
-			{
-				dir = Enemy::DIR::L;
-			}
 		}
 
-		obj.x = transform_.position_.x + 0.7f;
-		obj.z = transform_.position_.z;
-
-		if (pStage->IsWall((int)obj.x, (int)obj.z))
+		if (pStage->IsWall((float)transform_.position_.x + 0.3, (float)transform_.position_.z - 0.3))
 		{
 			XMStoreFloat3(&transform_.position_, prevPosition);
-			dir = Enemy::DIR::U;
+		}
+
+		if (pStage->IsWall((float)transform_.position_.x - 0.3, (float)transform_.position_.z + 0.3))
+		{
+			XMStoreFloat3(&transform_.position_, prevPosition);
 		}
 	}
 }
 
 void Enemy::Command()
 {
+	if (Input::IsKey(DIK_L))
+	{
+		dir_ = CharacterBase::DIR::R;
+	}
+
+	if (Input::IsKey(DIK_J))
+	{
+		dir_ = CharacterBase::DIR::L;
+	}
+
+	if (Input::IsKey(DIK_I))
+	{
+		dir_ = CharacterBase::DIR::U;
+	}
+
+	if (Input::IsKey(DIK_K))
+	{
+		dir_ = CharacterBase::DIR::D;
+	}
 }
 
 void Enemy::OnCollision(GameObject* pTarget)

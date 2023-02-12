@@ -7,7 +7,7 @@ CharacterBase::CharacterBase(GameObject* parent)
 }
 
 CharacterBase::CharacterBase(GameObject* parent, std::string name)
-	: GameObject(parent, name),hModel_(-1), pStage(nullptr), dir(), prevPosition(), speed_(0.1f)
+	: GameObject(parent, name),hModel_(-1), pStage(nullptr), dir_(), prevPosition(), speed_(0.1f)
 {
 	for (int i = 0; i < 15; i++)
 	{
@@ -39,12 +39,14 @@ void CharacterBase::Initialize()
 //更新
 void CharacterBase::Update()
 {
+	time_++;
+
 	//移動前の位置ベクトル
 	prevPosition = XMLoadFloat3(&transform_.position_);
 
 	if (speedTotal_ <= 1)
 	{
-		switch (dir)
+		switch (dir_)
 		{
 		case CharacterBase::DIR::L:
 			transform_.position_.x -= speed_;
@@ -65,24 +67,12 @@ void CharacterBase::Update()
 		default:
 			break;
 		}
+	}
 
-		//1進んだら
-		if (speedTotal_ >= 1)
-		{
-			speedTotal_ = 0;
-
-			float difX = Diff(transform_.position_.x, (float)round(transform_.position_.x));
-			float difZ = Diff(transform_.position_.z, (float)round(transform_.position_.z));
-
-			if (transform_.position_.x >= difX)
-			{
-				transform_.position_.x = (float)round(transform_.position_.x);
-			}
-			if (transform_.position_.z >= difZ)
-			{
-				transform_.position_.z = (float)round(transform_.position_.z);
-			}
-		}
+	if (time_ % 10 == 0)
+	{
+		speedTotal_ = 0;
+		dir_ = dir2_;
 	}
 
 	//現在の位置ベクトル
@@ -124,43 +114,6 @@ void CharacterBase::Update()
 		//そのぶん回転させる
 		transform_.rotate_.y = angle * 180.0f / 3.14f;
 	}
-
-	//{
-	//	XMFLOAT3 obj = transform_.position_;
-
-	//	if (pStage->IsWall((int)obj.x, (int)obj.z))
-	//	{
-	//		XMStoreFloat3(&transform_.position_, prevPosition);
-	//		//if (dir == CharacterBase::DIR::L)
-	//		//{
-	//		//	dir = CharacterBase::DIR::D;
-	//		//}
-	//		//else if (dir == CharacterBase::DIR::D)
-	//		//{
-	//		//	dir = CharacterBase::DIR::R;
-	//		//}
-	//	}
-
-	//	obj.z = transform_.position_.z + 0.7f;
-
-	//	if (pStage->IsWall((int)obj.x, (int)obj.z))
-	//	{
-	//		XMStoreFloat3(&transform_.position_, prevPosition);
-	//		//if (dir == CharacterBase::DIR::U)
-	//		//{
-	//		//	dir = CharacterBase::DIR::L;
-	//		//}
-	//	}
-
-	//	obj.x = transform_.position_.x + 0.7f;
-	//	obj.z = transform_.position_.z;
-
-	//	if (pStage->IsWall((int)obj.x, (int)obj.z))
-	//	{
-	//		XMStoreFloat3(&transform_.position_, prevPosition);
-	//		//dir = CharacterBase::DIR::U;
-	//	}
-	//}
 
 	Command();
 	Action();

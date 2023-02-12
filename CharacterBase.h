@@ -24,7 +24,10 @@ protected:
         R,
         U,
         D
-    } dir;
+    } dir_;
+
+    int time_;
+    DIR dir2_;
 
     float speed_;
     float speedTotal_;
