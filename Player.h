@@ -13,6 +13,8 @@ public:
 
     void InitBase() override;
 
+    void DrawBase() override;
+
     void Action() override;
 
     void Command() override;

@@ -16,29 +16,12 @@ void Player::InitBase()
 	transform_.position_ = XMFLOAT3(1.5, 0, 1.5);
 }
 
+void Player::DrawBase()
+{
+}
+
 void Player::Action()
 {
-	{
-		if (pStage->IsWall((float)transform_.position_.x + 0.3f, (float)transform_.position_.z + 0.3f))
-		{
-			XMStoreFloat3(&transform_.position_, prevPosition);
-		}
-
-		if (pStage->IsWall((float)transform_.position_.x - 0.3f, (float)transform_.position_.z - 0.3f))
-		{
-			XMStoreFloat3(&transform_.position_, prevPosition);
-		}
-
-		if (pStage->IsWall((float)transform_.position_.x + 0.3f, (float)transform_.position_.z - 0.3f))
-		{
-			XMStoreFloat3(&transform_.position_, prevPosition);
-		}
-
-		if (pStage->IsWall((float)transform_.position_.x - 0.3f, (float)transform_.position_.z + 0.3f))
-		{
-			XMStoreFloat3(&transform_.position_, prevPosition);
-		}
-	}
 }
 
 void Player::Command()

@@ -18,14 +18,14 @@ Stage::~Stage()
 void Stage::Initialize()
 {
     //モデルデータのロード
-    hModel_[0] = Model::Load("Floor.fbx");
+    hModel_[1] = Model::Load("Floor.fbx");
     assert(hModel_[0] >= 0);
 
-    hModel_[1] = Model::Load("Wall.fbx");
+    hModel_[-1] = Model::Load("Wall.fbx");
     assert(hModel_[1] >= 0);
 
     CsvReader csv;
-    csv.Load("map2.csv");
+    csv.Load("map.csv");
 
     for (int x = 0; x < 15; x++)
     {
@@ -66,10 +66,10 @@ void Stage::Release()
 //そこは壁かどうか
 bool Stage::IsWall(int x, int z)
 {
-    return (map_[x][z] == 1);
+    return (map_[x][z] == -1);
 }
 
 bool Stage::IsFloor(int x, int z)
 {
-    return (map_[x][z] == 0);
+    return (map_[x][z] == 1);
 }

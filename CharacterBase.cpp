@@ -115,6 +115,28 @@ void CharacterBase::Update()
 		transform_.rotate_.y = angle * 180.0f / 3.14f;
 	}
 
+	{
+		if (pStage->IsWall((float)transform_.position_.x + 0.3, (float)transform_.position_.z + 0.3))
+		{
+			XMStoreFloat3(&transform_.position_, prevPosition);
+		}
+
+		if (pStage->IsWall((float)transform_.position_.x - 0.3, (float)transform_.position_.z - 0.3))
+		{
+			XMStoreFloat3(&transform_.position_, prevPosition);
+		}
+
+		if (pStage->IsWall((float)transform_.position_.x + 0.3, (float)transform_.position_.z - 0.3))
+		{
+			XMStoreFloat3(&transform_.position_, prevPosition);
+		}
+
+		if (pStage->IsWall((float)transform_.position_.x - 0.3, (float)transform_.position_.z + 0.3))
+		{
+			XMStoreFloat3(&transform_.position_, prevPosition);
+		}
+	}
+
 	Command();
 	Action();
 }
@@ -124,6 +146,8 @@ void CharacterBase::Draw()
 {
 	Model::SetTransform(hModel_, transform_);
 	Model::Draw(hModel_);
+
+	DrawBase();
 }
 
 //ŠJ•ú

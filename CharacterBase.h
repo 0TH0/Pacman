@@ -36,6 +36,7 @@ protected:
    virtual void Action() = 0;
    virtual void Command() = 0;
    virtual void InitBase() = 0;
+   virtual void DrawBase() = 0;
 
 public:
     //コンストラクタ
