@@ -13,7 +13,11 @@ Player::~Player()
 
 void Player::InitBase()
 {
-	transform_.position_ = XMFLOAT3(1.5, 0, 1.5);
+	//モデルデータのロード
+	hModel_ = Model::Load("Player.fbx");
+	assert(hModel_ >= 0);
+
+	transform_.position_ = XMFLOAT3(1.4, 0, 1.4);
 }
 
 void Player::DrawBase()
@@ -44,5 +48,10 @@ void Player::Command()
 	if (Input::IsKey(DIK_S))
 	{
 		dir2_ = CharacterBase::DIR::D;
+	}
+
+	if (time_ % 10 == 0)
+	{
+		dir_ = dir2_;
 	}
 }

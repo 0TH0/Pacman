@@ -1,4 +1,5 @@
 #include "Astar.h"
+#include <vector>
 
 using namespace std;
 
@@ -27,8 +28,12 @@ namespace Astar
 	static int rowG;
 	static int colG;
 
+	int nextRow;
+	int nextCol;
+
 	bool close[MAP_ROW][MAP_COL];
 
+	DIR dirToTar;
 
 	void SetStartCell(int row, int col)
 	{
@@ -54,24 +59,27 @@ namespace Astar
 		return GoalCell;
 	}
 
-	//スタート地点を入れて初期化
-	void Init()
+	DIR GetDir() 
 	{
-		//time関数を使った乱数の種の設定
-		//srand((unsigned int)time(NULL));
+		return dirToTar; 
+	}
 
-		//rowS = rand() % MAP_ROW;
-		//colS = rand() % MAP_COL;
+	void MoveToTag()
+	{
+		for (int row = 0; row < MAP_ROW; row++)
+		{
+			for (int col = 0; col < MAP_COL; col++)
+			{
+				if (totalCosts[row][col] == 1)
+				{
+				}
+			}
+		}
+	}
 
-		//rowG = rand() % MAP_ROW;
-		//colG = rand() % MAP_COL;
-
-		////スタート地点
-		//startCell = { rowS , colS };
-
-		////ゴール地点
-		//GoalCell = { rowG , colG };
-
+	//スタート地点を入れて初期化
+	void Update()
+	{
 		for (int row = 0; row < MAP_ROW; row++)
 		{
 			for (int col = 0; col < MAP_COL; col++)
@@ -107,8 +115,8 @@ namespace Astar
 	{
 		for (DIRECTION dir : DIRECTIONS)
 		{
-			int nextRow = cell.row + dir.dirRow;
-			int nextCol = cell.col + dir.dirCol;
+			nextRow = cell.row + dir.dirRow;
+			nextCol = cell.col + dir.dirCol;
 
 			//0より小さいのは無視
 			if (COSTMAP[nextRow][nextCol] < 0)
@@ -123,6 +131,11 @@ namespace Astar
 
 				//コストを計算
 				CalcCosts({ nextRow, nextCol });
+			}
+
+			if (dir.dirCol < cell.col && dir.dirRow < cell.row)
+			{
+				dirToTar = DIR::U;
 			}
 		}
 	}
@@ -142,21 +155,21 @@ namespace Astar
 				//コストが最大値じゃなかったらスタート地点からのコストを表示
 				if (totalCosts[row][col] == 0)
 				{
-					pText->Draw((row + 1) * 55 + 100, (col + 1) * 40 + 10, "S");
+					pText->Draw((row + 1) * 55 + 100, (- col) * 40 + 600 , "S");
 				}
 				//ゴールだったら
 				else if (row == rowG && col == colG)
 				{
-					pText->Draw((row + 1) * 55 + 100, (col + 1) * 40 + 10, "G");
+					pText->Draw((row + 1) * 55 + 100, (-col) * 40 + 600, "G");
 					close[row][col] = true;
 				}
 				else if (totalCosts[row][col] != MAX_COSTS)
 				{
-					pText->Draw((row + 1) * 55 + 100, (col + 1) * 40 + 10, totalCosts[row][col]);
+					pText->Draw((row + 1) * 55 + 100, (-col) * 40 + 600, totalCosts[row][col]);
 				}
 				else
 				{
-					pText->Draw((row + 1) * 55 + 100, (col + 1) * 40 + 10, "|");
+					pText->Draw((row + 1) * 55 + 100, (-col) * 40 + 600, "|");
 				}
 			}
 		}
@@ -173,7 +186,7 @@ namespace Astar
 			for (int col = 0; col < csv.GetWidth(); col++)
 			{
 				//ロードしたデータをCOSTMAPに代入
-				COSTMAP[row][col] = csv.GetValue(col, row);
+				COSTMAP[row][col] = csv.GetValue(row, col);
 			}
 		}
 	}

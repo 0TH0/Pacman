@@ -7,12 +7,8 @@ CharacterBase::CharacterBase(GameObject* parent)
 }
 
 CharacterBase::CharacterBase(GameObject* parent, std::string name)
-	: GameObject(parent, name),hModel_(-1), pStage(nullptr), dir_(), prevPosition(), speed_(0.1f)
+	: GameObject(parent, name),hModel_(-1), pStage(nullptr), dir_(),dir2_(), prevPosition(), speed_(0.1f), time_(0),speedTotal_(0)
 {
-	for (int i = 0; i < 15; i++)
-	{
-		map_[i][i] = 0;
-	}
 }
 
 //デストラクタ
@@ -23,10 +19,6 @@ CharacterBase::~CharacterBase()
 //初期化
 void CharacterBase::Initialize()
 {
-	//モデルデータのロード
-	hModel_ = Model::Load("Player.fbx");
-	assert(hModel_ >= 0);
-
 	pStage = (Stage*)FindObject("Stage");
 	assert(pStage != nullptr);
 
@@ -72,7 +64,6 @@ void CharacterBase::Update()
 	if (time_ % 10 == 0)
 	{
 		speedTotal_ = 0;
-		dir_ = dir2_;
 	}
 
 	//現在の位置ベクトル
@@ -115,26 +106,24 @@ void CharacterBase::Update()
 		transform_.rotate_.y = angle * 180.0f / 3.14f;
 	}
 
+	if (pStage->IsWall((float)transform_.position_.x + 0.3, (float)transform_.position_.z + 0.3))
 	{
-		if (pStage->IsWall((float)transform_.position_.x + 0.3, (float)transform_.position_.z + 0.3))
-		{
-			XMStoreFloat3(&transform_.position_, prevPosition);
-		}
+		XMStoreFloat3(&transform_.position_, prevPosition);
+	}
 
-		if (pStage->IsWall((float)transform_.position_.x - 0.3, (float)transform_.position_.z - 0.3))
-		{
-			XMStoreFloat3(&transform_.position_, prevPosition);
-		}
+	if (pStage->IsWall((float)transform_.position_.x - 0.3, (float)transform_.position_.z - 0.3))
+	{
+		XMStoreFloat3(&transform_.position_, prevPosition);
+	}
 
-		if (pStage->IsWall((float)transform_.position_.x + 0.3, (float)transform_.position_.z - 0.3))
-		{
-			XMStoreFloat3(&transform_.position_, prevPosition);
-		}
+	if (pStage->IsWall((float)transform_.position_.x + 0.3, (float)transform_.position_.z - 0.3))
+	{
+		XMStoreFloat3(&transform_.position_, prevPosition);
+	}
 
-		if (pStage->IsWall((float)transform_.position_.x - 0.3, (float)transform_.position_.z + 0.3))
-		{
-			XMStoreFloat3(&transform_.position_, prevPosition);
-		}
+	if (pStage->IsWall((float)transform_.position_.x - 0.3, (float)transform_.position_.z + 0.3))
+	{
+		XMStoreFloat3(&transform_.position_, prevPosition);
 	}
 
 	Command();

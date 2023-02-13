@@ -20,16 +20,24 @@ namespace Astar
 		int dirCol;
 	}DIRECTION;
 
+	enum DIR
+	{
+		L = 0,
+		R,
+		D,
+		U
+	 };
+
 	const DIRECTION DIRECTIONS[] =
 	{
 		{  0, -1 },		// L
 		{  0, +1 },		// R
-		{ -1,  0 },		// U
-		{ +1,  0 }		// D
+		{ -1,  0 },		// D
+		{ +1,  0 }		// U
 	};
 
 	//初期化
-	void Init();
+	void Update();
 	//スタート地点からのコストを計算
 	void CalcCosts(CELL cell);
 	//コストを表示
@@ -47,4 +55,9 @@ namespace Astar
 
 	CELL GetStartCell();
 	CELL GetGoalCell();
+
+	//目標地点に移動
+	void MoveToTag();
+
+	DIR GetDir();
 };

@@ -6,6 +6,8 @@
 //◆◆◆を管理するクラス
 class Enemy : public CharacterBase
 {
+    int EnemyTime_;
+    XMFLOAT3 playerPos_;
 public:
     //コンストラクタ
     Enemy(GameObject* parent);

@@ -8,11 +8,9 @@
 //ŸŸŸ‚ğŠÇ—‚·‚éƒNƒ‰ƒX
 class CharacterBase : public GameObject
 {
+protected:
     int hModel_;    //ƒ‚ƒfƒ‹”Ô†
 
-    int map_[15][15];
-
-protected:
     Stage* pStage;
 
     XMVECTOR prevPosition;
@@ -31,7 +29,6 @@ protected:
 
     float speed_;
     float speedTotal_;
-
 
    virtual void Action() = 0;
    virtual void Command() = 0;
