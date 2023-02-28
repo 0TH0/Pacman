@@ -13,7 +13,6 @@ class EnemyPink : public CharacterBase
     Astar AI_;
     bool CanMove_;
     int totalCell;
-    int time_;
     int x = rand() % 15 + 1;
     int z = rand() % 15 + 1;
 public:

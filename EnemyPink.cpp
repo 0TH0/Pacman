@@ -32,8 +32,6 @@ void EnemyPink::Action()
 {
     Player* pPlayer = (Player*)FindObject("Player");
 
-    time_++;
-
     if (CanMove_)
     {
         if (totalCell >= 0)
@@ -57,14 +55,6 @@ void EnemyPink::Action()
     {
         x = rand() % 15 + 1;
         z = rand() % 15 + 1;
-        time_ = 0;
-    }
-    //2•b–ˆ‚Éi˜H‚ð•Ï‚¦‚é
-    else if (time_ >= 120)
-    {
-        x = rand() % 15 + 1;
-        z = rand() % 15 + 1;
-        time_ = 0;
     }
 
     if (count_ > frame)
