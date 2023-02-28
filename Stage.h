@@ -6,7 +6,10 @@ class Stage : public GameObject
 {
     int hModel_[2];    //モデル番号
 
-    int map_[15][15];
+    static const int STAGE_SIZE_X = 15;
+    static const int STAGE_SIZE_Z = 15;
+
+    int map_[STAGE_SIZE_X][STAGE_SIZE_Z];
 
 public:
     //コンストラクタ

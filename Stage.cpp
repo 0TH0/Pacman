@@ -27,9 +27,9 @@ void Stage::Initialize()
     CsvReader csv;
     csv.Load("map.csv");
 
-    for (int x = 0; x < 15; x++)
+    for (int x = 0; x < STAGE_SIZE_X; x++)
     {
-        for (int z = 0; z < 15; z++)
+        for (int z = 0; z < STAGE_SIZE_Z; z++)
         {
             map_[x][z] = csv.GetValue(x, z);
         }
@@ -45,9 +45,9 @@ void Stage::Update()
 //•`‰æ
 void Stage::Draw()
 {
-    for (int x = 0; x < 15; x++)
+    for (int x = 0; x < STAGE_SIZE_X; x++)
     {
-        for (int z = 0; z < 15; z++)
+        for (int z = 0; z < STAGE_SIZE_Z; z++)
         {
             int type = map_[x][z];
             transform_.position_.x = x;

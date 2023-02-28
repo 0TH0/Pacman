@@ -36,6 +36,7 @@ namespace Astar
 		{ +1,  0 }		// U
 	};
 
+	bool Init(CELL startCell, CELL goalCell);
 	//初期化
 	void Update();
 	//スタート地点からのコストを計算
@@ -58,6 +59,4 @@ namespace Astar
 
 	//目標地点に移動
 	void MoveToTag();
-
-	DIR GetDir();
 };

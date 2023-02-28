@@ -17,51 +17,32 @@ int totalCosts[MAP_ROW][MAP_COL];
 
 namespace Astar
 {
-	CELL startCell;
-	CELL GoalCell;
-
-	//スタート地点の乱数
-	static int rowS;
-	static int colS;
-
-	//ゴール地点の乱数
-	static int rowG;
-	static int colG;
+	CELL startCell_;
+	CELL goalCell_;
 
 	int nextRow;
 	int nextCol;
 
 	bool close[MAP_ROW][MAP_COL];
 
-	DIR dirToTar;
-
 	void SetStartCell(int row, int col)
 	{
-		startCell = {row, col};
-		rowS = row;
-		colS = col;
+		startCell_ = {row, col};
 	}
 
 	void SetGoalCell(int row, int col)
 	{
-		GoalCell = { row, col };
-		rowG = row;
-		colG = col;
+		goalCell_ = { row, col };
 	}
 
 	CELL GetStartCell()
 	{
-		return startCell;
+		return startCell_;
 	}
 
 	CELL GetGoalCell()
 	{
-		return GoalCell;
-	}
-
-	DIR GetDir() 
-	{
-		return dirToTar; 
+		return goalCell_;
 	}
 
 	void MoveToTag()
@@ -77,6 +58,13 @@ namespace Astar
 		}
 	}
 
+	bool Init(CELL startCell, CELL goalCell)
+	{
+		startCell = startCell;
+		goalCell_ = goalCell;
+		return true;
+	}
+
 	//スタート地点を入れて初期化
 	void Update()
 	{
@@ -89,7 +77,7 @@ namespace Astar
 			}
 		}
 		//初期位置のコストを0にする
-		totalCosts[startCell.row][startCell.col] = 0;
+		totalCosts[startCell_.row][startCell_.col] = 0;
 	}
 
 	// マンハッタン距離を求める
@@ -132,11 +120,6 @@ namespace Astar
 				//コストを計算
 				CalcCosts({ nextRow, nextCol });
 			}
-
-			if (dir.dirCol < cell.col && dir.dirRow < cell.row)
-			{
-				dirToTar = DIR::U;
-			}
 		}
 	}
 
@@ -158,10 +141,9 @@ namespace Astar
 					pText->Draw((row + 1) * 55 + 100, (- col) * 40 + 600 , "S");
 				}
 				//ゴールだったら
-				else if (row == rowG && col == colG)
+				else if (row == goalCell_.col && col == goalCell_.row)
 				{
 					pText->Draw((row + 1) * 55 + 100, (-col) * 40 + 600, "G");
-					close[row][col] = true;
 				}
 				else if (totalCosts[row][col] != MAX_COSTS)
 				{
@@ -195,7 +177,7 @@ namespace Astar
 	void Draw()
 	{
 		//スタート地点からのコストを計算
-		CalcCosts(startCell);
+		CalcCosts(startCell_);
 
 		//コストを表示
 		Show();
