@@ -26,7 +26,7 @@ void Enemy::InitBase()
 
 void Enemy::DrawBase()
 {
-	//Astar::Draw();
+	Astar::Draw();
 }
 
 void Enemy::Action()
