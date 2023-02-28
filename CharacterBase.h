@@ -25,7 +25,7 @@ protected:
     } dir_;
 
     int time_;
-    DIR dir2_;
+    DIR dirNext_;  //ŽŸ‚É“®‚­Œü‚«
 
     float speed_;
     float speedTotal_;
@@ -55,6 +55,4 @@ public:
 
     //ŠJ•ú
     void Release() override;
-
-    float Diff(float x1, float x2);
 };

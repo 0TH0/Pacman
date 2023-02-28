@@ -7,7 +7,7 @@ CharacterBase::CharacterBase(GameObject* parent)
 }
 
 CharacterBase::CharacterBase(GameObject* parent, std::string name)
-	: GameObject(parent, name),hModel_(-1), pStage(nullptr), dir_(),dir2_(), prevPosition(), speed_(0.1f), time_(0),speedTotal_(0)
+	: GameObject(parent, name),hModel_(-1), pStage(nullptr), dir_(),dirNext_(), prevPosition(), speed_(0.1f), time_(0),speedTotal_(0)
 {
 }
 
@@ -106,21 +106,19 @@ void CharacterBase::Update()
 		transform_.rotate_.y = angle * 180.0f / 3.14f;
 	}
 
+	//•Ç‚Ì“–‚½‚è”»’è
 	if (pStage->IsWall((float)transform_.position_.x + 0.3, (float)transform_.position_.z + 0.3))
 	{
 		XMStoreFloat3(&transform_.position_, prevPosition);
 	}
-
 	if (pStage->IsWall((float)transform_.position_.x - 0.3, (float)transform_.position_.z - 0.3))
 	{
 		XMStoreFloat3(&transform_.position_, prevPosition);
 	}
-
 	if (pStage->IsWall((float)transform_.position_.x + 0.3, (float)transform_.position_.z - 0.3))
 	{
 		XMStoreFloat3(&transform_.position_, prevPosition);
 	}
-
 	if (pStage->IsWall((float)transform_.position_.x - 0.3, (float)transform_.position_.z + 0.3))
 	{
 		XMStoreFloat3(&transform_.position_, prevPosition);
@@ -142,17 +140,4 @@ void CharacterBase::Draw()
 //ŠJ•ú
 void CharacterBase::Release()
 {
-}
-
-float CharacterBase::Diff(float x1, float x2)
-{
-	if (x1 >= x2)
-	{
-		return x1 - x2;
-	}
-	else
-	{
-		return x2 - x1;
-	}
-
 }

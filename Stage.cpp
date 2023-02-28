@@ -19,10 +19,10 @@ void Stage::Initialize()
 {
     //モデルデータのロード
     hModel_[1] = Model::Load("Floor.fbx");
-    assert(hModel_[0] >= 0);
+    assert(hModel_[1] >= 0);
 
     hModel_[-1] = Model::Load("Wall.fbx");
-    assert(hModel_[1] >= 0);
+    assert(hModel_[-1] >= 0);
 
     CsvReader csv;
     csv.Load("map.csv");

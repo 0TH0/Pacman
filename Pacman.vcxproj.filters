@@ -87,13 +87,18 @@
     <ClCompile Include="PlayScene.cpp" />
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="CharacterBase.cpp" />
-    <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="EnemyRed.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="GameOverScene.cpp" />
     <ClCompile Include="Astar.cpp" />
     <ClCompile Include="Engine\Text.cpp">
       <Filter>01Engine\ResourceManager</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\Math.cpp">
+      <Filter>01Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyOrange.cpp" />
+    <ClCompile Include="EnemyPink.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\BoxCollider.h">
@@ -157,13 +162,18 @@
     <ClInclude Include="PlayScene.h" />
     <ClInclude Include="Stage.h" />
     <ClInclude Include="CharacterBase.h" />
-    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="EnemyRed.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="GameOverScene.h" />
     <ClInclude Include="Astar.h" />
     <ClInclude Include="Engine\Text.h">
       <Filter>01Engine\ResourceManager</Filter>
     </ClInclude>
+    <ClInclude Include="Engine\Math.h">
+      <Filter>01Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyOrange.h" />
+    <ClInclude Include="EnemyPink.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\Shader\Simple2D.hlsl">

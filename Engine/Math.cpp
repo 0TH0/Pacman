@@ -33,3 +33,16 @@ float Math::CalcDist(XMFLOAT3 vec, XMFLOAT3 vec2)
 
     return sqrtf( (vec3.x * vec3.x) + (vec3.y * vec3.y) + (vec3.z * vec3.z) );
 }
+
+XMFLOAT3 Math::VectorToFloat3(XMVECTOR v)
+{
+    return XMFLOAT3();
+}
+
+XMFLOAT3 VectorToFloat3(XMVECTOR v)
+{
+    XMFLOAT3 xmf3;
+    XMStoreFloat3(&xmf3, v);
+
+    return xmf3;
+}
